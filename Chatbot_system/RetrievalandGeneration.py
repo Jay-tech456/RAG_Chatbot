@@ -1,4 +1,4 @@
-from haystack.utils import apis
+from haystack.utils import Secret
 from haystack.components.embedders import SentenceTransformersTextEmbedder
 from haystack.components.builders import PromptBuilder
 from haystack_integrations.components.retrievers.pinecone import PineconeEmbeddingRetriever
@@ -9,17 +9,38 @@ from Chatbot_system.utils import pinecone_config
 import os
 from dotenv import load_dotenv
 
+prompt_template = """
+You are a helpful AI assistant. Your task is to answer the query based on the provided context. Follow these guidelines:
+
+1. Use only the information from the given documents to answer the query.
+2. If the answer is not explicitly stated in the documents, respond with "I don't have enough information to answer this question."
+3. If the documents contain conflicting information, mention the discrepancy in your answer.
+4. Provide a concise and accurate answer, citing the relevant document(s) when possible.
+5. If appropriate, Start with a short introduction and use bullet points or numbered lists to structure your response.
+
+Query: {{query}}
+
+Context:
+{% for doc in documents %}
+Document {{loop.index}}:
+{{doc.content}}
+
+{% endfor %}
+
+Answer: 
+"""
+
 def get_result(query):                  
     query_pipeline = Pipeline()
 
     query_pipeline.add_component("text_embedder", SentenceTransformersTextEmbedder())
     query_pipeline.add_component("retriever", PineconeEmbeddingRetriever(document_store=pinecone_config()))
     query_pipeline.add_component("prompt_builder", PromptBuilder(template=prompt_template))
-    query_pipeline.add_component("llm", HuggingFaceTGIGenerator(model="mistralai/Mistral-7B-v0.1", token=Secret.from_token("")))
+    query_pipeline.add_component("generator", HuggingFaceTGIGenerator(model="mistralai/Mistral-7B-v0.1", token = Secret.from_env_var("HF_API_TOKEN")))
 
     query_pipeline.connect("text_embedder.embedding", "retriever.query_embedding")
     query_pipeline.connect("retriever.documents", "prompt_builder.documents")
-    query_pipeline.connect("prompt_builder", "llm")
+    query_pipeline.connect("prompt_builder", "generator")
 
     query = query
 
@@ -30,8 +51,10 @@ def get_result(query):
         }
     )
 
-    return results['llm']['replies'][0]
+    return results['generator']['replies'][0]
 
 
 if __name__ == '__main__':
-    get_retrieval_config()
+    
+    result=get_result("what is Model with Memory?")
+    print(result)
