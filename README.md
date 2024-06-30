@@ -16,8 +16,13 @@ This RAG application answers queries about recent news and financial reports rel
 
 
 Experimentation Questions tried with the RAG Chatbot:
+
 Experimentation 1
- <img width="944" alt="image" src="https://github.com/pavannagula/RAG-Application-Using-Mistral-and-Haystack/assets/39379433/1fe0d8da-196d-461c-9021-4d7da5c69236">
+
+<img width="944" alt="image" src="https://github.com/pavannagula/RAG-Application-Using-Mistral-and-Haystack/assets/39379433/1fe0d8da-196d-461c-9021-4d7da5c69236">
+
+
 
 Experimentation 2
+
 <img width="855" alt="image" src="https://github.com/pavannagula/RAG-Application-Using-Mistral-and-Haystack/assets/39379433/233001b9-a90e-49ec-8142-559efd296912">
