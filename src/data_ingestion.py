@@ -9,7 +9,7 @@ from haystack.components.converters import PyPDFToDocument
 from pathlib import Path 
 import os
 from dotenv import load_dotenv
-from Chatbot_system.utils import pinecone_config
+from src.pinecone_utils import pinecone_config
 
 
 def data_ingest(document_store):

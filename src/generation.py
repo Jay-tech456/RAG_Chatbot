@@ -4,8 +4,7 @@ from haystack.components.builders import PromptBuilder
 from haystack_integrations.components.retrievers.pinecone import PineconeEmbeddingRetriever
 from haystack.components.generators import HuggingFaceTGIGenerator
 from haystack import Pipeline
-from Chatbot_system.data_ingestion import data_ingest
-from Chatbot_system.utils import pinecone_config
+from src.pinecone_utils import pinecone_config
 import os
 from dotenv import load_dotenv
 
