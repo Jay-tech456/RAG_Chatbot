@@ -1,7 +1,7 @@
 import requests
 import streamlit as st
 from dotenv import load_dotenv
-from Chatbot_system.RetrievalandGeneration import get_result
+from src.generation import get_result
 
 # Title
 st.set_page_config(page_title="RAG Chatbot Using Haystack Mistral & Pinecone", layout="wide")
