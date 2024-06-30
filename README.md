@@ -9,3 +9,4 @@ This project is about answering queries related recent news about Nvidia's news 
 
  Example questions tried with the RAG Chatbot:
  
+[streamlit-app-2024-06-30-01-06-84.webm](https://github.com/pavannagula/RAG-Application-Using-Mistral-and-Haystack/assets/39379433/2fda1103-eef9-4498-994e-15439d9639a8)
