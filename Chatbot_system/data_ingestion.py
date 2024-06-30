@@ -29,7 +29,7 @@ def data_ingest(document_store):
     indexing.connect("Document_splitter", "Document_Embedding")
     indexing.connect("Document_Embedding", "Document_Writer")
 
-    urls = ["https://lilianweng.github.io/posts/2019-06-23-meta-rl/"]
+    urls = ["https://blogs.nvidia.com/blog/nemotron-4-synthetic-data-generation-llm-training/"]
 
     indexing.run({"Document_fetcher": {"urls": urls}})
 

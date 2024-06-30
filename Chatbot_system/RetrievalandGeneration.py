@@ -15,8 +15,7 @@ You are a helpful AI assistant. Your task is to answer the query based on the pr
 1. Use only the information from the given documents to answer the query.
 2. If the answer is not explicitly stated in the documents, respond with "I don't have enough information to answer this question."
 3. If the documents contain conflicting information, mention the discrepancy in your answer.
-4. Provide a concise and accurate answer, citing the relevant document(s) when possible.
-5. If appropriate, Start with a short introduction and use bullet points or numbered lists to structure your response.
+4. Provide a detailed explanation of answer with accurate information, citing the relevant document(s) when possible.
 
 Query: {{query}}
 
@@ -56,5 +55,5 @@ def get_result(query):
 
 if __name__ == '__main__':
     
-    result=get_result("what is Model with Memory?")
+    result=get_result("Can you explain me how to Fine-Tuning With NeMo, Optimizing for Inference With TensorRT-LLM?")
     print(result)

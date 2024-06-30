@@ -1,36 +1,49 @@
-from fastapi import FastAPI, Request, Form, Response
-from fastapi.templating import Jinja2Templates
-from fastapi.encoders import jsonable_encoder
-import uvicorn
-from fastapi import FastAPI
-import json
-import os
+import requests
+import streamlit as st
 from dotenv import load_dotenv
 from Chatbot_system.RetrievalandGeneration import get_result
 
-#loading the environment variable
-load_dotenv()
-PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
-print("API Key Imported Successfully")
+# Title
+st.set_page_config(page_title="RAG Chatbot Using Haystack Mistral & Pinecone", layout="wide")
+st.title("RAG With Haystack Mistral & Pinecone")
 
-#creating the app
-app = FastAPI()
+# Input Form
+with st.form(key="query_form"):
+    question = st.text_area("Ask Anything!", height=150)
+    submit_button = st.form_submit_button(label="Submit")
 
-# Configure templates
-templates = Jinja2Templates(directory="Templates")
+# Output section for the answer
+answer_placeholder = st.empty()
+info_placeholder = st.empty()
 
-#creating the routes with bind functions
-@app.get("/")
-async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-    
-@app.post("/get_answer")
-async def get_answer(request: Request, question: str = Form()):
-    print(question)
-    answer= get_result(question)
-    response_data = jsonable_encoder(json.dumps({"answer": answer}))
-    res = Response(response_data)
-    return res
-    
-if __name__ == "__main__":
-    uvicorn.run("app:app",host="0.0.0.0",port=8000,reload=True)
+# Processing the Form Submission
+if submit_button:
+    if not question:
+        st.error("Please enter your query!")
+    else:
+        info_placeholder.info("Processing your query... Please wait.")
+        try:
+            answer = get_result(question)
+            answer_placeholder.text_area("Answer", value=answer, height=150, disabled=True)
+            info_placeholder.empty()  
+        except Exception as e:
+            info_placeholder.empty()  
+            st.error(f"An error occurred: {e}")
+
+# CSS styling
+st.markdown(
+    """
+    <style>
+    .stTextArea {
+        font-family: 'Fira Code', monospace;
+        background-color: #f8f9fa !important;
+        color: #495057 !important;
+    }
+    .stButton button {
+        background-color: #007bff !important;
+        color: #ffffff !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)

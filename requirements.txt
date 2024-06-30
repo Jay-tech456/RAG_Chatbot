@@ -8,4 +8,5 @@ pypdf
 sentence-transformers
 python-multipart
 trafilatura
+streamlit
 -e .
