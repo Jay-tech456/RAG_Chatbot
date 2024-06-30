@@ -3,8 +3,8 @@ from setuptools import find_packages, setup
 setup(
     name="RAG Chatbot System using Mistral and Haystack",
     version="0.0.1",
-    author="pavannagula",
-    author_email="npavankumar36@gmail.com",
+    author="xxxxx",
+    author_email="xxxxx",
     packages=find_packages(),
-    install_requires=["pinecone-haystack","haystack-ai","fastapi","uvicorn","python-dotenv","pathlib"]
+    install_requires=["pinecone-haystack","haystack-ai","python-dotenv","pathlib"]
 )
