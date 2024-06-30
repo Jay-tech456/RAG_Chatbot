@@ -1,12 +1,23 @@
-# RAG Chatbot Using Haystack and Pinecone
+## RAG Chatbot Using Haystack and Pinecone
 
-I have done this project as a collection to my portfolio to cover my expertise in building RAG applications using various frameworks, vector databases, and techniques.
+This project is part of my portfolio, demonstrating my skills in building Retrieval-Augmented Generation (RAG) applications using different frameworks, vector databases, and techniques.
 
-This project is about answering queries related recent news about Nvidia's news and financial reports. 
-  1. Data Ingestion: I have used haystack framework for fetching the documents from the Nvidia news blogs and embedded and stored them into the pinecone vector database.
-  2. Retrival and Generation: I have integrated the prompt template with pinecone retrived vectors and feeded that into the Mistral 7B model using HuggingFaceTGIGenerator
-  3. Application: Finaly, Used the streamlit for the frontend application and generated the results.
+### Project Overview
 
- Example questions tried with the RAG Chatbot:
- 
-[streamlit-app-2024-06-30-01-06-84.webm](https://github.com/pavannagula/RAG-Application-Using-Mistral-and-Haystack/assets/39379433/2fda1103-eef9-4498-994e-15439d9639a8)
+This RAG application answers queries about recent news and financial reports related to Nvidia. The system combines several components to retrieve relevant information and generate accurate responses.
+
+### Key Components
+
+1. **Data Ingestion**: I used the Haystack framework to fetch documents from Nvidia news blogs. These documents were embedded and stored in the Pinecone vector database for efficient retrieval.
+
+2. **Retrieval and Generation**: I integrated a prompt template with vectors retrieved from Pinecone and fed this data into the Mistral 7B model using the Hugging Face TGI Generator. This ensures high-quality, relevant responses.
+
+3. **Application**: I developed a frontend application using Streamlit to provide a user-friendly interface for querying and displaying results.
+
+
+Experimentation Questions tried with the RAG Chatbot:
+Experimentation 1
+ <img width="944" alt="image" src="https://github.com/pavannagula/RAG-Application-Using-Mistral-and-Haystack/assets/39379433/1fe0d8da-196d-461c-9021-4d7da5c69236">
+
+Experimentation 2
+<img width="855" alt="image" src="https://github.com/pavannagula/RAG-Application-Using-Mistral-and-Haystack/assets/39379433/233001b9-a90e-49ec-8142-559efd296912">
