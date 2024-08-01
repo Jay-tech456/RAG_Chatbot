@@ -2,11 +2,13 @@ from haystack.utils import Secret
 from haystack.components.embedders import SentenceTransformersTextEmbedder
 from haystack.components.builders import PromptBuilder
 from haystack_integrations.components.retrievers.pinecone import PineconeEmbeddingRetriever
-from haystack.components.generators import HuggingFaceTGIGenerator
+from haystack.components.generators import HuggingFaceAPIGenerator
 from haystack import Pipeline
 from src.pinecone_utils import pinecone_config
 import os
 from dotenv import load_dotenv
+
+PINECONE_API_KEY = "416790fd-f511-4dd1-8e19-45ddde02f0c7"
 
 prompt_template = """
 You are a helpful AI assistant. Your task is to answer the query based on the provided context. Follow these guidelines:
@@ -14,7 +16,7 @@ You are a helpful AI assistant. Your task is to answer the query based on the pr
 1. Use only the information from the given documents to answer the query.
 2. If the answer is not explicitly stated in the documents, respond with "I don't have enough information to answer this question."
 3. If the documents contain conflicting information, mention the discrepancy in your answer.
-4. Provide a detailed explanation of answer with accurate information, citing the relevant document(s) when possible.
+4. Provide a detailed explanation of the answer with accurate information, citing the relevant document(s) when possible.
 
 Query: {{query}}
 
@@ -25,7 +27,7 @@ Document {{loop.index}}:
 
 {% endfor %}
 
-Answer: 
+Answer:
 """
 
 def get_result(query):                  
@@ -34,12 +36,20 @@ def get_result(query):
     query_pipeline.add_component("text_embedder", SentenceTransformersTextEmbedder())
     query_pipeline.add_component("retriever", PineconeEmbeddingRetriever(document_store=pinecone_config()))
     query_pipeline.add_component("prompt_builder", PromptBuilder(template=prompt_template))
-    query_pipeline.add_component("generator", HuggingFaceTGIGenerator(model="mistralai/Mistral-7B-v0.1", token = Secret.from_env_var("HF_API_TOKEN")))
+
+    api_params = {
+        "api_key": "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",
+        "model": "mistralai/Mistral-7B-v0.1",
+        "url": "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-v0.1" 
+    }
+
+    query_pipeline.add_component("generator", HuggingFaceAPIGenerator("text_generation_inference", api_params))
 
     query_pipeline.connect("text_embedder.embedding", "retriever.query_embedding")
     query_pipeline.connect("retriever.documents", "prompt_builder.documents")
     query_pipeline.connect("prompt_builder", "generator")
-
+    
+    
     query = query
 
     results = query_pipeline.run(
@@ -51,8 +61,6 @@ def get_result(query):
 
     return results['generator']['replies'][0]
 
-
 if __name__ == '__main__':
-    
-    result=get_result("Can you explain me how to Fine-Tuning With NeMo, Optimizing for Inference With TensorRT-LLM?")
+    result = get_result("Can you explain to me how to Fine-Tune With NeMo, Optimizing for Inference With TensorRT-LLM?")
     print(result)

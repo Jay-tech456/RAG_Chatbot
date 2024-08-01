@@ -1,10 +1,7 @@
-pinecone-haystack
-haystack-ai
-python-dotenv
-pathlib
-pypdf
-sentence-transformers
-python-multipart
-trafilatura
-streamlit
--e .
+pip install haystack
+pip install "pinecone-client[grpc]"
+pip install haystack[all] sentence-transformers pinecone-client python-dotenv
+pip install pinecone-haystack haystack-ai
+ pip install transformers
+ pip install trafilatura
+ pip install streamlit

@@ -9,7 +9,7 @@ from haystack.components.converters import PyPDFToDocument
 from pathlib import Path 
 import os
 from dotenv import load_dotenv
-from src.pinecone_utils import pinecone_config
+from pinecone_utils import pinecone_config
 
 
 def data_ingest(document_store):
@@ -37,3 +37,4 @@ if __name__ == "__main__":
     
     document_store=pinecone_config()
     data_ingest(document_store)
+
