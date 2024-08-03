@@ -8,7 +8,6 @@ from src.pinecone_utils import pinecone_config
 import os
 from dotenv import load_dotenv
 
-PINECONE_API_KEY = "416790fd-f511-4dd1-8e19-45ddde02f0c7"
 
 prompt_template = """
 You are a helpful AI assistant. Your task is to answer the query based on the provided context. Follow these guidelines:
